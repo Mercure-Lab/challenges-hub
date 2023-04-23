@@ -47,7 +47,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     const fileName = `${randomUUID()}.js`;
     const codeFilePath = `/Users/salah/Projets/Perso/talent-hub/challenges/challenge-hub/codes/${fileName}`;
 
-    const testFilePath = `/Users/salah/Projets/Perso/talent-hub/challenges/challenge-hub/challenges/${req.body.id}/test.js`;
+    const testFilePath = `${process.env.TEST_FILE_PATH}/${req.body.id}/test.js`;
 
     try {
         fs.writeFileSync(codeFilePath, req.body.code);
