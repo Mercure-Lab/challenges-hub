@@ -41,8 +41,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
     try {
         fs.writeFileSync(codeFilePath, req.body.code);
-    } catch (error) {
-        res.status(400).json({ message: 'Error, file not created' });
+    } catch (error: any) {
+        res.status(400).json({ message: `Error, file not created : ${error.message}` });
     }
 
     try {
