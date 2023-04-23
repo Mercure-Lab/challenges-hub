@@ -6,7 +6,7 @@ const { spawn } = require('child_process');
 
 function runUserCode(filePath: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        const dockerCommand = `docker run --rm -v ${filePath}:/usr/src/app/usercode.js --memory=256m --cpus=1 --ulimit nofile=64:64 --ulimit nproc=32:32 --pids-limit=32 --net=none --name mon-conteneur-sandbox challenge-hub-code-sandbox node usercode.js`;
+        const dockerCommand = `sudo docker run --rm -v ${filePath}:/usr/src/app/usercode.js --memory=256m --cpus=1 --ulimit nofile=64:64 --ulimit nproc=32:32 --pids-limit=32 --net=none --name mon-conteneur-sandbox challenge-hub-code-sandbox node usercode.js`;
 
         const dockerProcess = spawn('bash', ['-c', dockerCommand]);
 
