@@ -1,0 +1,8 @@
+{
+    "env": "development",
+    "elastic": {
+        "baseURL": "http://51.254.37.79:9200",
+        "index": "challenges-hub-dev",
+        "apiKey": ""
+    }
+}
