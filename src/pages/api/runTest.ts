@@ -45,7 +45,7 @@ type Data = {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     const fileName = `${randomUUID()}.js`;
-    const codeFilePath = `/Users/salah/Projets/Perso/talent-hub/challenges/challenge-hub/codes/${fileName}`;
+    const codeFilePath = `${process.env.CODE_FILE_PATH}/${fileName}`;
 
     const testFilePath = `${process.env.TEST_FILE_PATH}/${req.body.id}/test.js`;
 
