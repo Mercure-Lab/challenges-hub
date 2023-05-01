@@ -184,7 +184,7 @@ export default function Profile({ customSession }: ProfileProps) {
                                                 ></Image>
                                             </div>
                                             <div className="w-1/2 text-left">
-                                                <p className="mt-4">Un nitro pour une période d&apos;un mois.</p>
+                                                <p className="mt-4">Un nitro boost pour une période d&apos;un mois.</p>
                                             </div>
                                         </div>
                                     </div>
