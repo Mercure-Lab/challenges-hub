@@ -128,7 +128,7 @@ export default function Profile({ customSession }: ProfileProps) {
                                         </p>
                                         <br />
                                         <div className="flex justify-center">
-                                            {now > targetDateTimeBeginInDateObject && (
+                                            {now > targetDateTimeBeginInDateObject && now < targetDateTimeEndInDateObject && (
                                                 <form action="">
                                                     <button
                                                         type="submit"
