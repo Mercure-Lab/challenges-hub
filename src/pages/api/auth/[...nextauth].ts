@@ -56,7 +56,8 @@ export const authOptions: NextAuthOptions = {
                     pseudo: user.pseudo,
                     experience: user.experience,
                     level: user.level,
-                    nextLevelExperience: user.nextLevelExperience
+                    nextLevelExperience: user.nextLevelExperience,
+                    permRole: user.permRole
                 };
             }
         })
@@ -80,6 +81,7 @@ export const authOptions: NextAuthOptions = {
                 newToken.experience = newUser.experience;
                 newToken.level = newUser.level;
                 newToken.nextLevelExperience = newUser.nextLevelExperience;
+                newToken.permRole = newUser.permRole;
             }
             return newToken;
         },
@@ -96,7 +98,8 @@ export const authOptions: NextAuthOptions = {
                     email: newToken.email,
                     experience: newToken.experience,
                     level: newToken.level,
-                    nextLevelExperience: newToken.nextLevelExperience
+                    nextLevelExperience: newToken.nextLevelExperience,
+                    permRole: newToken.permRole
                 }
             };
 

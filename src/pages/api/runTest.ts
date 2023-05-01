@@ -8,26 +8,21 @@ function runUserTest(filePath: string, testFilePath: string): Promise<string> {
     return new Promise((resolve, reject) => {
         // const testFilePath = `${__dirname}/../../challenges/01/test.ts`;
 
-        // Construisez la commande Docker avec les options et les limites appropriées
-        const dockerCommand = `sudo docker run --rm -v ${filePath}:/usr/src/app/usercode.js -v ${testFilePath}:/usr/src/app/challenge_test.js --memory=256m --cpus=1 --ulimit nofile=64:64 --ulimit nproc=32:32 --pids-limit=32 --net=none --name mon-conteneur-sandbox challenge-hub-code-sandbox node -e "const userFunction = require('./usercode'); const { testCases } = require('./challenge_test'); const testResults = []; for (const testCase of testCases) { const result = userFunction(testCase.input) === testCase.expectedOutput; testResults.push({ input: testCase.input, expectedOutput: testCase.expectedOutput, actualOutput: userFunction(testCase.input), passed: result }); } console.log(JSON.stringify(testResults));"`;
+        const dockerCommand = `sudo docker run --rm -v ${filePath}:/usr/src/app/usercode.js -v ${testFilePath}:/usr/src/app/challenge_test.js --memory=256m --cpus=1 --ulimit nofile=64:64 --ulimit nproc=32:32 --pids-limit=32 --net=none --name ${randomUUID()} challenge-hub-code-sandbox node -e "const userFunction = require('./usercode'); const { testCases } = require('./challenge_test'); const testResults = []; for (const testCase of testCases) { const result = userFunction(testCase.input) === testCase.expectedOutput; testResults.push({ input: testCase.input, expectedOutput: testCase.expectedOutput, actualOutput: userFunction(testCase.input), passed: result }); } console.log(JSON.stringify(testResults));"`;
 
-        // Exécutez la commande Docker en utilisant le module child_process
         const dockerProcess = spawn('bash', ['-c', dockerCommand]);
 
         let output = '';
         let errors = '';
 
-        // Capturez la sortie (stdout)
         dockerProcess.stdout.on('data', (data: any) => {
             output += data.toString();
         });
 
-        // Capturez les erreurs (stderr)
         dockerProcess.stderr.on('data', (data: any) => {
             errors += data.toString();
         });
 
-        // Gérez le cas où le processus se termine avec succès
         dockerProcess.on('close', (code: number) => {
             if (code === 0) {
                 const testResults = JSON.parse(output);

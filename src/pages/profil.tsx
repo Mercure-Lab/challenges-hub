@@ -21,7 +21,7 @@ export default function Profile({ customSession }: ProfileProps) {
                 <title>Challenges Hub - Profil</title>
             </Head>
             <main className="bg-gray-900 text-white min-h-screen">
-                <NavBar />
+                <NavBar customSession={customSession} />
                 <div className="container mx-auto px-4 py-16">
                     <div className="rounded-2xl bg-white text-gray-900 shadow-xl p-8 sm:p-12 lg:p-16">
                         <div className="grid grid-rows-2 grid-flow-col gap-4">

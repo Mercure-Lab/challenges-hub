@@ -2,22 +2,28 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPowerOff, faUser, faCode, faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faUser, faCode, faMessage, faGear } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
+import { getSession } from 'next-auth/react';
+import { CustomSession } from '@/interfaces/interfaces';
 
-const NavBar = () => {
-    const { data: session, status } = useSession();
+interface ProfileProps {
+    customSession: CustomSession;
+}
 
-    const logOut = () => {
-        signOut();
-    };
+const logOut = () => {
+    signOut();
+};
 
+const NavBar = ({ customSession }: ProfileProps) => {
+    // const { data: session, status } = useSession();
+    console.log('session', customSession);
     return (
         <header className="text-white pt-4">
             <nav className="container mx-auto px-4 flex items-center justify-between bg-purple-500 text-white py-4 rounded-t-2xl rounded-b-3xl overflow-hidden">
                 <Image src="/logo.png" alt="Logo" width={50} height={50} />
                 <div className="text-2xl font-semibold">
-                    <Link href="/">Challenges Hub</Link>
+                    <Link href="/">Challenge Hub</Link>
                 </div>
                 <ul className="hidden md:flex space-x-4">
                     <li>
@@ -26,7 +32,7 @@ const NavBar = () => {
                         </Link>
                     </li>
 
-                    {session && (
+                    {customSession && (
                         <li className="group">
                             <Link href="/challenges" className="hover:text-pink-400 transition-colors duration-200">
                                 <FontAwesomeIcon icon={faCode} />
@@ -37,7 +43,7 @@ const NavBar = () => {
                         </li>
                     )}
 
-                    {session && (
+                    {customSession && (
                         <li>
                             <Link href="/profil" className="hover:text-pink-400 transition-colors duration-200">
                                 <FontAwesomeIcon icon={faUser} />
@@ -45,7 +51,15 @@ const NavBar = () => {
                         </li>
                     )}
 
-                    {session ? (
+                    {customSession && customSession.user?.permRole === 'owner' && (
+                        <li>
+                            <Link href="/admin" className="hover:text-pink-400 transition-colors duration-200">
+                                <FontAwesomeIcon icon={faGear} />
+                            </Link>
+                        </li>
+                    )}
+
+                    {customSession ? (
                         <li>
                             <button onClick={logOut} className="hover:text-pink-400 transition-colors duration-200">
                                 <FontAwesomeIcon icon={faPowerOff} />

@@ -46,7 +46,7 @@ export default function Challenges({ customSession, challenges }: ProfileProps) 
                 <title>Challenges Hub - Challenges</title>
             </Head>
             <main className="bg-gray-900 text-white min-h-screen">
-                <NavBar />
+                <NavBar customSession={customSession} />
                 <section className="container py-16 mx-auto px-4">
                     <h1 className="text-5xl font-bold mb-6 text-center">Challenges</h1>
 

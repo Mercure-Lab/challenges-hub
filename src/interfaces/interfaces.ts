@@ -7,6 +7,7 @@ interface CustomUser extends User {
     level: number;
     nextLevelExperience: number;
     pseudo: string;
+    permRole: string;
 }
 interface CustomSession extends Session {
     user: {
@@ -18,6 +19,7 @@ interface CustomSession extends Session {
         experience: number;
         level: number;
         nextLevelExperience: number;
+        permRole: string;
     };
 }
 
@@ -30,6 +32,7 @@ interface CustomToken extends JWT {
     experience: number;
     level: number;
     nextLevelExperience: number;
+    permRole: string;
 }
 
 enum Language {
