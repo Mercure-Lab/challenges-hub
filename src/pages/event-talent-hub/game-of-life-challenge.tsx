@@ -14,12 +14,13 @@ interface ProfileProps {
 
 export default function Profile({ customSession }: ProfileProps) {
     const percentage = 75;
-    const targetDateTimeUTC = '2023-05-08T15:38:00.000Z';
-
-    const targetDateTimeInDateObject = new Date(targetDateTimeUTC);
+    const targetDateBeginTimeUTC = '2023-05-03T20:00:00.000Z';
+    const targetDateEndTimeUTC = '2023-05-17T20:00:00.000Z';
+    const targetDateTimeBeginInDateObject = new Date(targetDateBeginTimeUTC);
+    const targetDateTimeEndInDateObject = new Date(targetDateEndTimeUTC);
     const now = new Date();
 
-    console.log('targetDateTimeInDateObject', targetDateTimeInDateObject);
+    console.log('targetDateTimeInDateObject', targetDateTimeBeginInDateObject);
     console.log('now', now);
 
     return (
@@ -35,16 +36,25 @@ export default function Profile({ customSession }: ProfileProps) {
                             <div className="row-span-4 text-center">
                                 <h2 className="text-4xl font-bold mb-4">Game of Life</h2>
                                 <h3 className="text-2xl font-bold mb-4">
-                                    Temps restant{' '}
-                                    {now < targetDateTimeInDateObject ? (
-                                        <span className="text-green-500">
-                                            {' '}
-                                            <Timer targetDateTime={targetDateTimeUTC} />
-                                        </span>
-                                    ) : (
+                                    {now < targetDateTimeBeginInDateObject ? (
+                                        <>
+                                            Début dans
+                                            <span className="text-green-500">
+                                                <Timer targetDateTime={targetDateBeginTimeUTC} />
+                                            </span>
+                                        </>
+                                    ) : now > targetDateTimeEndInDateObject ? (
                                         <>
                                             <br />
                                             <span className="text-red-500">Temps écoulé</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            Temps restant
+                                            <span className="text-green-500">
+                                                <Timer targetDateTime={targetDateEndTimeUTC} />
+                                            </span>
+                                            Bon courage !
                                         </>
                                     )}
                                 </h3>
@@ -118,7 +128,7 @@ export default function Profile({ customSession }: ProfileProps) {
                                         </p>
                                         <br />
                                         <div className="flex justify-center">
-                                            {now > targetDateTimeInDateObject && (
+                                            {now > targetDateTimeBeginInDateObject && (
                                                 <form action="">
                                                     <button
                                                         type="submit"
@@ -139,13 +149,57 @@ export default function Profile({ customSession }: ProfileProps) {
                                 <div className="">
                                     <h3 className="text-2xl font-bold mb-4 mt-10">Lots à gagner</h3>
                                     <hr />
-                                    <div className="mt-4 ">
+                                    <div className="mt-4">
                                         <p>
                                             Un jury évaluera les projets sur différents critères et décernera un prix au
-                                            challenger qui aura le meilleur projet.
+                                            challenger qui aura le meilleur projet ainsi que 5 nominés.
                                         </p>
                                         <br />
-                                        <div className="flex justify-center">
+                                        <p className="mb-4">
+                                            <b> Le vainqueur remportera :</b>
+                                        </p>
+                                        <div className="flex">
+                                            <div className="w-1/2 flex justify-end">
+                                                <Image
+                                                    src="/Steam_icon_logo.png"
+                                                    height={90}
+                                                    width={90}
+                                                    alt="game-of-life"
+                                                ></Image>
+                                            </div>
+                                            <div className="w-1/2 text-left">
+                                                <p className="mt-4">2 clés Steam pour des jeux (valeur maximum 20€)</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex">
+                                            <div className="w-1/2 flex justify-end">
+                                                <Image src="/icon-cadeau.png" height={120} width={120} alt="game-of-life"></Image>
+                                            </div>
+                                            <div className="w-1/2 text-left">
+                                                <p className="mt-4">
+                                                    Une carte cadeau de 15€ à choisir parmi les options suivantes : League of
+                                                    Legends, Steam, etc...
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="flex">
+                                            <div className="w-1/2 flex justify-end">
+                                                <Image
+                                                    src="/Logo_TalentHub.png"
+                                                    height={120}
+                                                    width={120}
+                                                    alt="game-of-life"
+                                                ></Image>
+                                            </div>
+                                            <div className="w-1/2 text-left">
+                                                <p className="mt-4">
+                                                    Un rôle spécial @Champion de code sur notre serveur discord, une mise en avant
+                                                    sur les réseaux sociaux de Talent Hub ainsi qu&apos;un rôle spécial @Champion
+                                                    du Code sur notre serveur.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="flex">
                                             <div className="w-1/2 flex justify-end">
                                                 <Image
                                                     // className="border-solid border-2 border-purple-500"
@@ -159,20 +213,7 @@ export default function Profile({ customSession }: ProfileProps) {
                                                 <p className="mt-4">Un badge exclusif sur la V2 du site Talent-Hub</p>
                                             </div>
                                         </div>
-                                        <div className="flex justify-center mt-4">
-                                            <div className="w-1/2 flex justify-end">
-                                                <Image
-                                                    // className="border-solid border-2 border-purple-500"
-                                                    src="/discord-logo.png"
-                                                    height={100}
-                                                    width={100}
-                                                    alt="game-of-life"
-                                                ></Image>
-                                            </div>
-                                            <div className="w-1/2 text-left">
-                                                <p className="mt-4">Un rôle exclusif sur le discord Talent-Hub</p>
-                                            </div>
-                                        </div>
+
                                         <div className="flex justify-center mt-4">
                                             <div className="w-1/2 flex justify-end">
                                                 <Image
@@ -186,6 +227,85 @@ export default function Profile({ customSession }: ProfileProps) {
                                             <div className="w-1/2 text-left">
                                                 <p className="mt-4">Un nitro boost pour une période d&apos;un mois.</p>
                                             </div>
+                                        </div>
+                                        <div className="flex justify-center mt-4">
+                                            <div className="w-1/2 flex justify-end">
+                                                <Image
+                                                    // className="border-solid border-2 border-purple-500"
+                                                    src="/lljs.gif"
+                                                    height={90}
+                                                    width={90}
+                                                    alt="game-of-life"
+                                                ></Image>
+                                            </div>
+                                            <div className="w-1/2 text-left">
+                                                Mise en avant du projet sur le serveur Discord sponsor de @Ghom, Les laboratoires
+                                                <p className="mt-4"></p>
+                                            </div>
+                                        </div>
+                                        <div className="flex justify-center mt-4">
+                                            <div className="w-1/2 flex justify-end">
+                                                <Image
+                                                    // className="border-solid border-2 border-purple-500"
+                                                    src="/elkir-gourde.png"
+                                                    height={90}
+                                                    width={90}
+                                                    alt="game-of-life"
+                                                ></Image>
+                                            </div>
+                                            <div className="w-1/2 text-left">
+                                                Une gourde 500ml offerte par l&apos;association Elkir
+                                                <p className="mt-4"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4">
+                                        <p>
+                                            <b> Les nominés remporteront :</b>
+                                        </p>
+                                        <div>
+                                            <div className="flex justify-center mt-4">
+                                                <div className="w-1/2 flex justify-end">
+                                                    <Image
+                                                        // className="border-solid border-2 border-purple-500"
+                                                        src="/discord-nitro.jpeg"
+                                                        height={90}
+                                                        width={90}
+                                                        alt="game-of-life"
+                                                    ></Image>
+                                                </div>
+                                                <div className="w-1/2 text-left">
+                                                    <p className="mt-4">Un nitro classique pour une période d&apos;un mois.</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex">
+                                                <div className="w-1/2 flex justify-end">
+                                                    <Image
+                                                        src="/Steam_icon_logo.png"
+                                                        height={90}
+                                                        width={90}
+                                                        alt="game-of-life"
+                                                    ></Image>
+                                                </div>
+                                                <div className="w-1/2 text-left">
+                                                    <p className="mt-4">1 clé Steam pour un jeu (valeur maximum 20€)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-bold mb-4 mt-10">Nos sponsors</h3>
+                                    <hr />
+                                    <div className="mt-4">
+                                        <b> Nous remercions nos sponsors pour leurs soutiens !</b>
+                                    </div>
+                                    <div className="grid grid-col-2 grid-flow-col gap-4 mt-4 justify-center">
+                                        <div className="">
+                                            <Image src="/lljs.gif" height={90} width={90} alt="Les Laboratoires"></Image>
+                                        </div>
+                                        <div>
+                                            <Image src="/elkir.png" height={90} width={90} alt="Elkir"></Image>
                                         </div>
                                     </div>
                                 </div>
