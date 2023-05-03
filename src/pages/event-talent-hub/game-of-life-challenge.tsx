@@ -14,8 +14,8 @@ interface ProfileProps {
 
 export default function Profile({ customSession }: ProfileProps) {
     const percentage = 75;
-    const targetDateBeginTimeUTC = '2023-05-03T20:00:00.000Z';
-    const targetDateEndTimeUTC = '2023-05-17T20:00:00.000Z';
+    const targetDateBeginTimeUTC = '2023-05-03T18:00:00.000Z';
+    const targetDateEndTimeUTC = '2023-05-17T18:00:00.000Z';
     const targetDateTimeBeginInDateObject = new Date(targetDateBeginTimeUTC);
     const targetDateTimeEndInDateObject = new Date(targetDateEndTimeUTC);
     const now = new Date();
